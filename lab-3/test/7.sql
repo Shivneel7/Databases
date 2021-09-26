@@ -1,0 +1,5 @@
+-- select count(l_receiptdate) from lineitem, customer, orders
+-- where c_name = 'Customer#000000010'
+-- and o_custkey = c_custkey
+-- and o_orderkey = l_orderkey
+-- and CAST(SUBSTR(l_receiptdate, 1, 4) AS integer)  =  1993;
