@@ -38,14 +38,14 @@ from Product
 where type = 'printer');
 
 --3 ---------------------------------------------------------------
-select distinct * from (select distinct P.maker, PC.model as PC_Model, L.model as Laptop_Model, 
-(PC.price + L.price) as combined_Price
+select distinct P.maker, PC.model as PC_Model, L.model as Laptop_Model, 
+max(PC.price + L.price) as combined_Price
 from Product P, Laptop L, PC
 where P.maker in (select maker from Product where type = 'pc' and model = PC.model
 INTERSECT 
 select maker from Product where type = 'laptop' and model = L.model)
-ORDER BY combined_Price DESC)
-GROUP BY maker;
+group by maker;
+
 
 -- select distinct P.maker, PC.model as PC_Model, L.model as Laptop_Model, 
 -- (PC.price + L.price) as combined_Price
