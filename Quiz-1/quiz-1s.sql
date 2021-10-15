@@ -44,6 +44,15 @@ from Product P, Laptop L, PC
 where P.maker in (select maker from Product where type = 'pc' and model = PC.model
 INTERSECT 
 select maker from Product where type = 'laptop' and model = L.model)
+ORDER BY combined_Price ASC)
+GROUP BY maker;
+
+select distinct * from (select distinct P.maker, PC.model as PC_Model, L.model as Laptop_Model, 
+(PC.price + L.price) as combined_Price
+from Product P, Laptop L, PC
+where P.maker in (select maker from Product where type = 'pc' and model = PC.model
+INTERSECT 
+select maker from Product where type = 'laptop' and model = L.model)
 ORDER BY combined_Price DESC)
 GROUP BY maker;
 
@@ -53,16 +62,15 @@ from Product P, Laptop L, PC
 where P.maker in (select maker from Product where type = 'pc' and model = PC.model
 INTERSECT 
 select maker from Product where type = 'laptop' and model = L.model)
-ORDER BY combined_Price ASC)
-GROUP BY maker;
+order by combined_Price ASC);
 
 select distinct * from (select distinct P.maker, PC.model as PC_Model, L.model as Laptop_Model, 
 (PC.price + L.price) as combined_Price
 from Product P, Laptop L, PC
 where P.maker in (select maker from Product where type = 'pc' and model = PC.model
 INTERSECT 
-select maker from Product where type = 'laptop' and model = L.model));
-
+select maker from Product where type = 'laptop' and model = L.model)
+order by combined_Price DESC);
 -- select P.maker, PC.model as PC_Model, L.model as Laptop_Model, 
 -- (PC.price + L.price) as combined_Price
 -- from Product P, Laptop L, PC
