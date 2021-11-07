@@ -71,14 +71,51 @@ def dropTable(_conn):
 def populateTable(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Populate table")
+    try:
 
+
+
+        cur = _conn.cursor()
+        q = """SELECT s_name from supplier
+            """
+
+        cur.execute(q)
+        rows = cur.fetchall()
+        for row in rows:
+            print(row[0])
+        
+        # sql = """INSERT INTO warehouse 
+        #         Values(1,1,1,1,1)
+        #         """
+
+        # _conn.execute(sql)
+        
+        _conn.commit()
+        print('success')
+    except Error as e:
+        _conn.rollback()
+        print(e)
     print("++++++++++++++++++++++++++++++++++")
 
 
 def Q1(_conn):
     print("++++++++++++++++++++++++++++++++++")
     print("Q1")
+    try:
 
+        sql = """Select * from warehouse
+                order by w_warehousekey
+                """
+
+
+
+        _conn.execute(sql)
+        
+        _conn.commit()
+
+    except Error as e:
+        _conn.rollback()
+        print(e)
     print("++++++++++++++++++++++++++++++++++")
 
 
@@ -125,7 +162,7 @@ def main():
         Q3(conn)
         Q4(conn)
         Q5(conn)
-        
+
     closeConnection(conn, database)
 
 
